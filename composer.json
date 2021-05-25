@@ -2,6 +2,7 @@
   "name": "serch3/bunnystream-php-library",
   "description": "Unofficial PHP Library for the Bunny Stream API",
   "type": "library",
+  "version": "1.0.0",
   "license": "MIT",
   "authors": [
     {

@@ -32,7 +32,7 @@ class BunnyStream
     /**
      * @param string $collection
      * @param string $search
-     * @param int $orderby
+     * @param int    $orderby
      * @throws BunnyStreamException
      * @return string
      */
@@ -324,7 +324,7 @@ class BunnyStream
     /**
      * @param string $videoId
      * @param string $url
-     * @param array $headers
+     * @param array  $headers
      * @throws BunnyStreamException
      * @return string
      */
