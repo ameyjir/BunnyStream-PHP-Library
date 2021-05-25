@@ -1,0 +1,34 @@
+{
+  "name": "serch3/bunnystream-php-library",
+  "description": "Unofficial PHP Library for the Bunny Stream API",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Sergio Mandujano",
+      "email": "alwovive@gmail.com"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/serch3/BunnyStream-PHP-Library"
+    }
+  ],
+  "require": {
+    "php": ">=7.4",
+    "ext-curl": "*",
+    "ext-json": "*"
+  },
+  "require-dev": {},
+  "autoload": {
+    "psr-4": {
+      "Bunny\\Stream\\": "src/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    }
+  }
+}
