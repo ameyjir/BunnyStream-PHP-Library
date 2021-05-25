@@ -19,8 +19,11 @@ composer require serch3/bunnystream-php-library
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+use Bunny\Stream\BunnyStream;
+
+
 // Initiate the class:
-$BunnyStream = new Bunny\Stream("{{Read/Write Key}}", "{{Video Library ID}}");
+$BunnyStream = new BunnyStream("{{Read/Write Key}}", "{{Video Library ID}}");
 ```
 ---
 ## Videos: 
@@ -76,7 +79,7 @@ $BunnyStream->delete($guid);
 
 ---
 
-Update Video info
+Update Video Info
 ```php
 $BunnyStream->update($guid, $name)
 );
@@ -92,7 +95,7 @@ optional:
 
 ---
 
-Get Video details
+Get Video Details
 ```php
 $BunnyStream->get($guid);
 
@@ -105,15 +108,60 @@ returns `PHP Object`
 
 ---
 
-Upload thumbnail 
+Upload Thumbnail 
 ```php
-$BunnyStream->uploadThumbnail($videoId, $url)
+$BunnyStream->uploadThumbnail($videoId, $url);
 
 ```
 
 `$videoId` ID of the video `string`
 
 `$url` path of the thumbnail `string`
+
+---
+
+Fetch Video
+```php
+$BunnyStream->fetch($url, $videoId);
+
+```
+
+`$url` External video URL `string`
+
+`$videoId` ID of the video. If not set, it will be automatically generated `string`
+
+optional: 
+
+`$headers` The headers that will be sent together with the fetch request `array`
+
+---
+
+Add Caption
+```php
+$BunnyStream->addCaption($source, $videoId, $srclang, $label);
+
+```
+
+`$source` path of the captions file `string`
+
+`$videoId` ID of the video `string`
+
+`$srclang` The unique srclang shortcode for the caption (e.g. en) `string`
+
+`$label` The text description label for the caption `string`
+
+---
+---
+
+Delete Caption
+```php
+$BunnyStream->deleteCaption($videoId, $srclang);
+
+```
+
+`$videoId` ID of the video `string`
+
+`$srclang` The unique srclang shortcode for the caption (e.g. en) `string`
 
 ---
 ## Collections: 
