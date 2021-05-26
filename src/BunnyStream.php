@@ -93,7 +93,7 @@ class BunnyStream
     /**
      * @param string $videoId
      * @throws BunnyStreamException
-     * @return Video|string
+     * @return string
      */
     public function get($videoId)
     {
@@ -108,7 +108,7 @@ class BunnyStream
     /**
      * @param string $collectionId
      * @throws BunnyStreamException
-     * @return Collection|string
+     * @return string
      */
     public function getCollection($collectionId)
     {
@@ -164,7 +164,7 @@ class BunnyStream
      * @param string $title
      * @param string $collectionId
      * @throws BunnyStreamException
-     * @return Video|string
+     * @return bool|object
      */
     public function create($title, $collectionId = null)
     {
@@ -184,7 +184,7 @@ class BunnyStream
 
     /**
      * @param string $title
-     * @return collectionId|string
+     * @return bool|string
      */
     public function createCollection($name)
     {
@@ -257,10 +257,10 @@ class BunnyStream
 
 
     /**
-     * @param string $source Path to the image to upload
      * @param string $videoId
+     * @param string $url image URL to upload
      * @throws BunnyStreamException
-     * @return Video|null
+     * @return bool|string
      */
     public function uploadThumbnail($videoId, $url)
     {
@@ -324,7 +324,7 @@ class BunnyStream
      * @param string $url
      * @param array  $headers
      * @throws BunnyStreamException
-     * @return string
+     * @return bool|string
      */
     public function fetch($url, $videoId = null, array $headers = null)
     {
@@ -340,7 +340,7 @@ class BunnyStream
             $header = ['headers' => array($headers)];
         }
 
-        $data = (isset($headers))
+        $data = (isset($header))
         ? json_encode(array_merge(array('url' => $url), $header))
         : json_encode(array('url' => $url));
 
@@ -353,9 +353,9 @@ class BunnyStream
      * 
      * @param $url
      * @param string $method
-     * @param null $uploadFile
-     * @param null $uploadFileSize
-     * @param array $properties
+     * @param resource $uploadFile
+     * @param int $uploadFileSize
+     * @param string $properties
      * @param int $type
      * @return string
      * @throws BunnyStreamException
