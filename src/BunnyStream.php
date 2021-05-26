@@ -357,7 +357,7 @@ class BunnyStream
      * @param int $uploadFileSize
      * @param string $properties
      * @param int $type
-     * @return string
+     * @return bool|string
      * @throws BunnyStreamException
      * @throws BunnyStreamFileNotFoundException
      * 
