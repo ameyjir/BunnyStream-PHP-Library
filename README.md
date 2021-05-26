@@ -29,7 +29,7 @@ $BunnyStream = new BunnyStream("{{Read/Write Key}}", "{{Video Library ID}}");
 ## Videos: 
 
 
-Listing videos:
+Listing Videos:
 ```php
 $BunnyStream->List();
 
@@ -51,7 +51,7 @@ returns `Json string`
 
 ---
 
-Upload video
+Upload Video
 ```php
 $BunnyStream->upload($filename, $title)
 );
@@ -218,7 +218,7 @@ $BunnyStream->updateCollection($collectionId, $name))
 
 ---
 
-Get Collection details
+Get Collection Details
 ```php
 $BunnyStream->getCollection($collectionId);
 

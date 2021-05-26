@@ -135,11 +135,9 @@ class BunnyStream
 
         if (isset($collectionId)) {
             $collection = array('collectionId' => $collectionId);
-
         } else {
             $collection = array();
         }
-
 
         $update_data = json_encode(array_merge(array('title' => $title), $collection));
         return $this->APIcall($videoId, "POST", null, null, $update_data);
@@ -328,26 +326,24 @@ class BunnyStream
      * @throws BunnyStreamException
      * @return string
      */
-    public function fetch($url, $videoId = null, array $headers = array())
+    public function fetch($url, $videoId = null, array $headers = null)
     {
         if (!isset($url)) {
             throw new BunnyStreamException("Missing required arguments.");
         }
         if ($videoId === null) {
-            if (!isset($title)) {
-                $title = rand();
-            }
-
+            $title = basename($url);
             $videoId = $this->create($title)->guid;
         }
 
-        if (!empty($headers)) {
+        if (isset($headers)) {
             $header = ['headers' => array($headers)];
-        } else {
-            $header = $headers;
         }
 
-        $data = array_merge(array('url' => $url), $header);
+        $data = (isset($headers))
+        ? json_encode(array_merge(array('url' => $url), $header))
+        : json_encode(array('url' => $url));
+
         return $this->APIcall($videoId . '/fetch', 'POST', null, null, $data);
     }
 
@@ -369,24 +365,16 @@ class BunnyStream
     private function APIcall($url = null, $method = "GET", $uploadFile = null, $uploadFileSize = null, $properties = null, $type = 1)
     {
         $ch = curl_init();
-        if ($url != null) {
-            if ($type == 2) {
-                curl_setopt($ch, CURLOPT_URL, $this->getBaseUrl(2) . $url);
-            } else {
-                curl_setopt($ch, CURLOPT_URL, $this->getBaseUrl() . $url);
-            }
+        if (isset($url)) {
+            curl_setopt($ch, CURLOPT_URL, $this->getBaseUrl($type) . $url);
         } else {
-            if ($type == 2) {
-                curl_setopt($ch, CURLOPT_URL, $this->getBaseUrl(2));
-            } else {
-                curl_setopt($ch, CURLOPT_URL, $this->getBaseUrl());
-            }
+            curl_setopt($ch, CURLOPT_URL, $this->getBaseUrl($type));
         }
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
         curl_setopt($ch, CURLOPT_FAILONERROR, 0);
 
-        if ($method == "PUT" && $uploadFile != null) {
+        if ($method == "PUT" && isset($uploadFile)) {
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_UPLOAD, 1);
             curl_setopt($ch, CURLOPT_INFILE, $uploadFile);
@@ -397,23 +385,19 @@ class BunnyStream
             curl_setopt($ch, CURLOPT_POST, TRUE);
         }
 
-
-        if ($method == "POST" && $properties != null) {
+        if ($method == "POST" && isset($properties)) {
             $fields = $properties;
             curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+        }
 
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                "AccessKey: {$this->apiAccessKey}",
-                "Content-Type: application/json",
-            ));
-        } elseif ($method == "POST" && $properties == null) {
+        if ($method == "POST") {
             curl_setopt($ch, CURLOPT_HTTPHEADER, array(
                 "AccessKey: {$this->apiAccessKey}",
                 "Content-Type: application/json",
             ));
         } else {
             curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                "AccessKey: {$this->apiAccessKey}",
+                "AccessKey: {$this->apiAccessKey}"
             ));
         }
 
