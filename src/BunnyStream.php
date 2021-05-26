@@ -34,7 +34,7 @@ class BunnyStream
      * @param string $search
      * @param int    $orderby
      * @throws BunnyStreamException
-     * @return string
+     * @return bool|string
      */
     public function List($collection = null, $search = null, int $orderby = null, int $items = 100, int $page = 1)
     {
@@ -64,7 +64,7 @@ class BunnyStream
      * @param string $search
      * @param int $orderby
      * @throws BunnyStreamException
-     * @return string
+     * @return bool|string
      */
     public function ListCollections($search = null, int $orderby = null, int $items = 100, int $page = 1)
     {
@@ -351,7 +351,7 @@ class BunnyStream
     /**
      * Sends a HTTP Request using cURL
      * 
-     * @param $url
+     * @param string $url
      * @param string $method
      * @param resource $uploadFile
      * @param int $uploadFileSize
