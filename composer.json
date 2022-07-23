@@ -1,5 +1,5 @@
 {
-  "name": "serch3/bunnystream-php-library",
+  "name": "ameyjir/bunnystream-php-library",
   "description": "Unofficial PHP Library for the Bunny Stream API",
   "type": "library",
   "license": "MIT",
