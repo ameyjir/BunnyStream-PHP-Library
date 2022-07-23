@@ -12,7 +12,7 @@
   "repositories": [
     {
       "type": "vcs",
-      "url": "https://github.com/serch3/BunnyStream-PHP-Library"
+      "url": "https://github.com/ameyjir/BunnyStream-PHP-Library"
     }
   ],
   "require": {
